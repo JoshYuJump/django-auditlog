@@ -2,6 +2,12 @@
 
 ## Next Release
 
+## 3.4.1-Revert (revert version)
+
+#### Reverts
+
+-- Revert `Drop 'Python 3.9' support ([#773]`
+
 ## 3.4.1 (2025-12-13)
 
 #### Fixes
@@ -21,6 +27,7 @@
 
 - Make diffing more robust for polymorphic models ([#784](https://github.com/jazzband/django-auditlog/pull/784))
 - Amend setup configuration to include non-python package files ([#769](https://github.com/jazzband/django-auditlog/pull/769))
+
 
 ## 3.3.0 (2025-09-18)
 
