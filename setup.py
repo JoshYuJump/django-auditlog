@@ -30,7 +30,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     python_requires=">=3.9",
-    install_requires=["Django>=4.2", "python-dateutil>=2.7.0"],
+    install_requires=["Django>=3.2", "python-dateutil>=2.7.0"],
     zip_safe=False,
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -40,10 +40,9 @@ setup(
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
         "Framework :: Django",
+        "Framework :: Django :: 3.2",
         "Framework :: Django :: 4.2",
         "Framework :: Django :: 5.0",
-        "Framework :: Django :: 5.1",
-        "Framework :: Django :: 5.2",
         "License :: OSI Approved :: MIT License",
     ],
 )

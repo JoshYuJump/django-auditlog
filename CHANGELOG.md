@@ -7,6 +7,7 @@
 #### Reverts
 
 -- Revert `Drop 'Python 3.9' support ([#773]`
+-- Revert `drop Django 3.2 support. (#677)`
 
 ## 3.4.1 (2025-12-13)
 
@@ -79,7 +80,6 @@ via `AUDITLOG_MASK_TRACKING_FIELDS` setting. ([#702](https://github.com/jazzband
 - feat: Added `truncate` option to `auditlogflush` management command. ([#681](https://github.com/jazzband/django-auditlog/pull/681))
 - feat: Added `AUDITLOG_CHANGE_DISPLAY_TRUNCATE_LENGTH` settings to keep or truncate strings of `changes_display_dict` property at variable length. ([#684](https://github.com/jazzband/django-auditlog/pull/684))
 - Drop Python 3.8 support. ([#678](https://github.com/jazzband/django-auditlog/pull/678))
-- Confirm Django 5.1 support and drop Django 3.2 support. ([#677](https://github.com/jazzband/django-auditlog/pull/677))
 
 #### Fixes
 
