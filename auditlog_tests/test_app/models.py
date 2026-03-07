@@ -483,6 +483,14 @@ class NullableFieldModel(models.Model):
     history = AuditlogHistoryField(delete_related=True)
 
 
+class BusinessNoModel(models.Model):
+    business_no = models.CharField(max_length=50, db_index=True)
+    text = models.TextField(blank=True)
+    related = models.ManyToManyField(SimpleModel, blank=True)
+
+    history = AuditlogHistoryField(delete_related=True)
+
+
 auditlog.register(AltPrimaryKeyModel)
 auditlog.register(UUIDPrimaryKeyModel)
 auditlog.register(ModelPrimaryKeyModel)
@@ -530,3 +538,8 @@ auditlog.register(
     mask_callable="auditlog_tests.test_app.mask.custom_mask_str",
 )
 auditlog.register(NullableFieldModel)
+auditlog.register(
+    BusinessNoModel,
+    business_no_field="business_no",
+    m2m_fields={"related"},
+)

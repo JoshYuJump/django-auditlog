@@ -34,6 +34,7 @@ from test_app.models import (
     AdditionalDataIncludedModel,
     AltPrimaryKeyModel,
     AutoManyRelatedModel,
+    BusinessNoModel,
     CharfieldTextfieldModel,
     ChoicesFieldModel,
     CustomMaskModel,
@@ -924,6 +925,27 @@ class AdditionalDataModelTest(TestCase):
             related_model.id,
             msg="Related model's id is logged",
         )
+
+
+class BusinessNoModelTest(TestCase):
+    def test_business_no_is_logged_on_create(self):
+        obj = BusinessNoModel.objects.create(business_no="BIZ-001", text="x")
+        log_entry = obj.history.get()
+        self.assertEqual(log_entry.object_business_no, "BIZ-001")
+
+    def test_business_no_is_logged_on_update(self):
+        obj = BusinessNoModel.objects.create(business_no="BIZ-002", text="x")
+        obj.text = "y"
+        obj.save()
+        latest = obj.history.latest()
+        self.assertEqual(latest.object_business_no, "BIZ-002")
+
+    def test_business_no_is_logged_on_m2m_change(self):
+        obj = BusinessNoModel.objects.create(business_no="BIZ-003", text="x")
+        related = SimpleModel.objects.create(text="rel")
+        obj.related.add(related)
+        latest = obj.history.latest()
+        self.assertEqual(latest.object_business_no, "BIZ-003")
 
 
 class DateTimeFieldModelTest(TestCase):

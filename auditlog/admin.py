@@ -26,6 +26,7 @@ class LogEntryAdmin(admin.ModelAdmin, LogEntryAdminMixin):
     search_fields = [
         "timestamp",
         "object_repr",
+        "object_business_no",
         "changes",
         "actor__first_name",
         "actor__last_name",

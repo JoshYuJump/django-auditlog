@@ -73,6 +73,22 @@ class LogEntryManager(models.Manager):
             if callable(get_additional_data):
                 kwargs.setdefault("additional_data", get_additional_data())
 
+            try:
+                from auditlog.registry import auditlog
+
+                registry_entry = auditlog._registry.get(instance.__class__)
+                if registry_entry:
+                    business_no_field = registry_entry.get("business_no_field")
+                    if business_no_field:
+                        business_no = getattr(instance, business_no_field, None)
+                        if business_no is not None:
+                            kwargs.setdefault(
+                                "object_business_no", smart_str(business_no)
+                            )
+            except BaseException:
+                # Never break logging due to optional business number extraction.
+                pass
+
             # set correlation id
             kwargs.setdefault("cid", get_cid())
             return self.create(**kwargs)
@@ -116,6 +132,22 @@ class LogEntryManager(models.Manager):
             get_additional_data = getattr(instance, "get_additional_data", None)
             if callable(get_additional_data):
                 kwargs.setdefault("additional_data", get_additional_data())
+
+            try:
+                from auditlog.registry import auditlog
+
+                registry_entry = auditlog._registry.get(instance.__class__)
+                if registry_entry:
+                    business_no_field = registry_entry.get("business_no_field")
+                    if business_no_field:
+                        business_no = getattr(instance, business_no_field, None)
+                        if business_no is not None:
+                            kwargs.setdefault(
+                                "object_business_no", smart_str(business_no)
+                            )
+            except BaseException:
+                # Never break logging due to optional business number extraction.
+                pass
 
             objects = [smart_str(instance) for instance in changed_queryset]
             kwargs["changes"] = {
@@ -349,6 +381,13 @@ class AbstractLogEntry(models.Model):
     )
     object_id = models.BigIntegerField(
         blank=True, db_index=True, null=True, verbose_name=_("object id")
+    )
+    object_business_no = models.CharField(
+        blank=True,
+        db_index=True,
+        max_length=128,
+        null=True,
+        verbose_name=_("object business no"),
     )
     object_repr = models.TextField(verbose_name=_("object representation"))
     serialized_data = models.JSONField(null=True)

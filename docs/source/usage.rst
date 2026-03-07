@@ -121,6 +121,16 @@ during the `register()` call.
 
 You do not need to map all the fields of the model, any fields not mapped will fall back on their ``verbose_name``. Django provides a default ``verbose_name`` which is a "munged camel case version" so ``product_name`` would become ``Product Name`` by default.
 
+**Logging business identifiers**
+
+In some systems, the model primary key (stored as ``LogEntry.object_pk`` / ``LogEntry.object_id``) is not the same as the
+business identifier used by end users (for example: order numbers, invoice numbers, ticket numbers). To persist such a
+business identifier in log entries, register the model using ``business_no_field`` and point it to a field on the model::
+
+    auditlog.register(Order, business_no_field="order_no")
+
+Auditlog will store this value on the log entry as ``LogEntry.object_business_no`` (indexed for fast lookups).
+
 **Masking fields**
 
 Fields that contain sensitive info and we want keep track of field change but not to contain the exact change.
