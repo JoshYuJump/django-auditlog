@@ -2,6 +2,10 @@
 
 ## Next Release
 
+## 3.4.1-patch.2
+
+- Added business no field
+
 ## 3.4.1-Revert (revert version)
 
 #### Reverts
